@@ -22,7 +22,7 @@ To download diagnostic WSIs (formatted as .svs files), molecular feature data an
 
 
 ## Processing Whole Slide Images
-To process WSIs, first, the tissue regions in each biopsy slide are segmented using Otsu's Segmentation on a downsampled WSI using OpenSlide. The 256 x 256 patches without spatial overlapping are extracted from the segmented tissue regions at the desired magnification. Consequently, a pretrained truncated ResNet50 is used to encode raw image patches into 1024-dim feature vectors, which we then save as .pt files for each WSI. The extracted features then serve as input (in a .pt file) to the network. The following folder structure is assumed for the extracted features vectors:    
+To process WSIs, first, the tissue regions in each biopsy slide are segmented using Otsu's Segmentation on a downsampled WSI using OpenSlide. The 256 x 256 patches without spatial overlapping are extracted from the segmented tissue regions at the desired magnification. Consequently, a pretrained truncated UNI is used to encode raw image patches into 1024-dim feature vectors, which we then save as .pt files for each WSI. The extracted features then serve as input (in a .pt file) to the network. The following folder structure is assumed for the extracted features vectors:    
 ```bash
 DATA_ROOT_DIR/
     └──TCGA_BLCA/
@@ -79,7 +79,7 @@ bash scripts/graph.sh
 This script will automate the processing of your data and create graph structures suitable for training. Ensure that you check and adjust the parameter settings within the script as needed to ensure compatibility with your specific data format.
 
 ### Step 2: Start Model Training 
-Next, use the `run.sh` script to start training the SurvPath model and other baseline models. 
+Next, use the `main.py` script to start training the CDGPath model and other baseline models. 
 
 ``` shell 
 python main.py
