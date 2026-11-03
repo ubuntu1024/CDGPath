@@ -29,20 +29,16 @@ DATA_ROOT_DIR/
         ├── slide_1.pt
         ├── slide_2.pt
         └── ...
-    └──TCGA_BRCA/
+    └──TCGA_HNSC/
         ├── slide_1.pt
         ├── slide_2.pt
         └── ...
-    └──TCGA_GBMLGG/
+    └──TCGA_COREAD/
         ├── slide_1.pt
         ├── slide_2.pt
         └── ...
-    └──TCGA_LUAD/
+    └──TCGA_STAD/
         ├── slide_1.ptd
-        ├── slide_2.pt
-        └── ...
-    └──TCGA_UCEC/
-        ├── slide_1.pt
         ├── slide_2.pt
         └── ...
     ...
@@ -57,13 +53,13 @@ Processed molecular profile features containing mutation status, copy number var
 For evaluating the algorithm's performance, we  partitioned each dataset using 5-fold cross-validation (stratified by the site of histology slide collection). Splits for each cancer type are found in the [`splits`]([https://github.com/ubuntu1024/CDGPath/splits/5folds](https://github.com/ubuntu1024/CDGPath/tree/main/splits/5folds)) folder, which each contain **splits_{k}.csv** for k = 1 to 5. In each **splits_{k}.csv**, the first column corresponds to the TCGA Case IDs used for training, and the second column corresponds to the TCGA Case IDs used for validation. Slides from one case are not distributed across training and validation sets. Alternatively, one could define their own splits, however, the files would need to be defined in this format. The dataset loader for using these train-val splits are defined in the `return_splits` function in the `SurvivalDatasetFactory`.
 
 ## Running Experiments 
-Refer to [`scripts`]([https://github.com/ubuntu1024/CDGPath/scripts](https://github.com/ubuntu1024/CDGPath/scripts)) folder for source files to train SurvPath and the baselines presented in the paper. Refer to the paper to find the hyperparameters required for training.
+Refer to [`scripts`]([https://github.com/ubuntu1024/CDGPath/scripts](https://github.com/ubuntu1024/CDGPath/scripts)) folder for source files to train CDGPath and the baselines presented in the paper. Refer to the paper to find the hyperparameters required for training.
 
 ### Step 1: Generate WSI Graph Structures 
-To initiate the graph-building process for WSI patches, you can use the following Python command. This approach involves first storing binary edges, which allows for random sampling and subsequently generating hyperedges based on these stored binary edges: 
+To initiate the graph-building process for WSI patches, you can use the following Python command. This approach involves first storing binary edges, which allows for random sampling and subsequently generating pairwise dual-relation graph based on these stored binary edges: 
 
 ``` shell
-bash python extract_graph.py --h5_path H5_PATH --graph_save_path GRAPH_SAVE_PATH
+python extract_graph.py --h5_path H5_PATH --graph_save_path GRAPH_SAVE_PATH
 ```
 
 `--h5_path H5_PATH`: This parameter specifies the path to your HDF5 file containing WSI patch data. Replace `H5_PATH` with the actual path to your data file.
